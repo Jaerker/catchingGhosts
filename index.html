@@ -9,22 +9,41 @@
     </head>
 	<body>
         <main>
-            <div id="formDiv">
+            <div id="formLoginDiv">
                 <form action="#" method="post">
-                    <span id="msg"></span>
+                    <span id="loginMsg"></span>
                     <div class="f-col">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" />
+                        <label for="loginUsername">Username</label>
+                        <input type="text" id="loginUsername" />
                     </div>
                     <div class="f-col">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" />
+                        <label for="loginPassword">Password:</label>
+                        <input type="password" id="loginPassword" />
                     </div>
                     <div>
                         <label for="question">Please confirm that you are not afraid of ghosts: </label>
                         <input id="question" type="checkbox">
                     </div>
-                    <button id="spela">Play Game</button>
+                    <button id="play">Play Game</button>
+                </form>
+            </div>
+            
+            <div id="formRegistrationDiv">
+                <form action="#" method="post">
+                    <span id="registrationMsg"></span>
+                    <div class="f-col">
+                        <label for="registerUsername">Username</label>
+                        <input type="text" id="registerUsername" />
+                    </div>
+                    <div class="f-col">
+                        <label for="registerPassword">Password:</label>
+                        <input type="password" id="registerPassword" />
+                    </div>
+                    <div class="f-col">
+                        <label for="registerPasswordAgain">Password again:</label>
+                        <input type="password" id="registerPasswordAgain" />
+                    </div>
+                    <button id="create">Create account</button>
                 </form>
             </div>
         </main>

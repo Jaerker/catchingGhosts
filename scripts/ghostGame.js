@@ -5,7 +5,6 @@
 
 let oGameData = {
    
-    
 
     //Metod som räknar fram och returnerar ett numeriskt värde som skall utgöra left-koordinaten (CSS) för ett img-element.
     left : function() {

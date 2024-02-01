@@ -3,6 +3,7 @@
 window.addEventListener('load', () => {
   //Här kickar ni igång ert program
   document.querySelector('#create').addEventListener('click', registerUser);
+  document.querySelectorAll('#loginToggle, #registrationToggle').forEach(btn => btn.addEventListener('click', toggleForms));
 });
 
 /**
@@ -107,7 +108,9 @@ function registerUser(event) {
 
 }
 
-function toggleForms() {
+function toggleForms(event) {
+    event.preventDefault();
+    document.querySelectorAll('#formLoginDiv, #formRegistrationDiv').forEach(div => div.classList.toggle('main__form-wrapper--hidden'));
     //formLoginDiv till formRegistrationDiv
 
     //formRegistrationDiv till formLoginDiv

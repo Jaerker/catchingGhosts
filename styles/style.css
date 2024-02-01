@@ -11,6 +11,45 @@ img {
 }
 
 /* Koden ovanför är obligatorisk. Ereventuella CSS skriver ni nedanför denna kommentar */
-.d-none{
-    display:none;
+.main{
+    
+    display: flex;
+    flex-flow:row;
+    height:50vh;
+    justify-content: center;
+    align-items: center;
+}
+.main__form-wrapper{
+    position:absolute;
+    width:400px;
+    opacity:1;
+    transition: opacity .2s ease-in-out, top .2s ease-in-out, transform .2s ease-in-out;
+}
+.main__form-wrapper--hidden{
+    transform:scale(.5);
+    opacity:0;
+    pointer-events:none;
+    
+}
+.main__form{
+    display:grid;
+    gap:.5rem;
+    
+}
+.main__form-column{
+    display:flex;
+    justify-content: space-between;
+}
+.main__form-column:last-child{
+    margin-bottom: .5rem;
+}
+.main__form-input{
+    padding:.25rem;
+}
+.main__form-checkbox{
+    width: 2rem;
+    height: 2rem;
+}
+.main__form-button{
+    padding:.5rem;
 }

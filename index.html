@@ -8,42 +8,44 @@
         <link rel="stylesheet" href="./styles/style.css">
     </head>
 	<body>
-        <main>
-            <div id="formLoginDiv">
-                <form action="#" method="post">
+        <main class="main">
+            <div class="main__form-wrapper" id="formLoginDiv">
+                <form class="main__form" action="#" method="post">
                     <span id="loginMsg"></span>
-                    <div class="f-col">
+                    <div class="main__form-column">
                         <label for="loginUsername">Username</label>
-                        <input type="text" id="loginUsername" />
+                        <input class="main__form-input" type="text" id="loginUsername" />
                     </div>
-                    <div class="f-col">
+                    <div class="main__form-column">
                         <label for="loginPassword">Password:</label>
-                        <input type="password" id="loginPassword" />
+                        <input class="main__form-input" type="password" id="loginPassword" />
                     </div>
-                    <div>
+                    <div class="main__form-column">
                         <label for="question">Please confirm that you are not afraid of ghosts: </label>
-                        <input id="question" type="checkbox">
+                        <input class="main__form-checkbox" id="question" type="checkbox">
                     </div>
-                    <button id="play">Play Game</button>
+                    <button class="main__form-button" id="play">Play Game</button>
+                    <button class="main__form-button" id="loginToggle">Im new to this game!</button>
                 </form>
             </div>
             
-            <div id="formRegistrationDiv">
-                <form action="#" method="post">
+            <div class="main__form-wrapper main__form-wrapper--hidden" id="formRegistrationDiv">
+                <form class="main__form" action="#" method="post" id="formRegistration">
                     <span id="registrationMsg"></span>
-                    <div class="f-col">
+                    <div class="main__form-column">
                         <label for="registerUsername">Username</label>
-                        <input type="text" id="registerUsername" />
+                        <input class="main__form-input" type="text" id="registerUsername" />
                     </div>
-                    <div class="f-col">
+                    <div class="main__form-column">
                         <label for="registerPassword">Password:</label>
-                        <input type="password" id="registerPassword" />
+                        <input class="main__form-input" type="password" id="registerPassword" />
                     </div>
-                    <div class="f-col">
+                    <div class="main__form-column">
                         <label for="registerPasswordAgain">Password again:</label>
-                        <input type="password" id="registerPasswordAgain" />
+                        <input class="main__form-input" type="password" id="registerPasswordAgain" />
                     </div>
-                    <button id="create">Create account</button>
+                    <button class="main__form-button" id="create">Create account</button>
+                    <button class="main__form-button" id="registrationToggle">I´ve played this before!</button>
                 </form>
             </div>
         </main>

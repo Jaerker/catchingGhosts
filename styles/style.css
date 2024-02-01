@@ -11,3 +11,6 @@ img {
 }
 
 /* Koden ovanför är obligatorisk. Ereventuella CSS skriver ni nedanför denna kommentar */
+.d-none{
+    display:none;
+}

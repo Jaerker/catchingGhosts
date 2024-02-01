@@ -3,17 +3,17 @@
 let users = [
     {
         id:1,
-        username: 'jaerker',
+        name: 'jaerker',
         password: 'sverker'
     },
     {
         id:2,
-        username: 'perarne',
+        name: 'perarne',
         password: 'iheartvolvo'
     },
     {
         id:3,
-        username: 'carita',
+        name: 'carita',
         password: 'husvagnsliv'
     }
 ];

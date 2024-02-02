@@ -1,9 +1,11 @@
 "use strict";
 
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
   //Här kickar ni igång ert program
-  document.querySelector("#create").addEventListener("click", registerUser);
-  document.querySelector("#play").addEventListener('click', validateLogin);
+  document.querySelector('#create').addEventListener('click', registerUser);
+  document.querySelectorAll('#loginToggle, #registrationToggle').forEach(btn => btn.addEventListener('click', toggleForms));
+  document.querySelector('#play').addEventListener('click', validateLogin);
+
 });
 
 /**
@@ -14,12 +16,14 @@ window.addEventListener("load", () => {
 function getUsers() {
   //Om users inte existerar i localStorage => lägg till de users vi har förberett till localStorage. (Du kan alltså ta bort alla användare och lägga
   // in nya utan att den populeras igen. Det är bara när man tar bort den helt som dessa läggs i automatiskt)
-  if (!localStorage.getItem("users")) {
-    localStorage.setItem("users", JSON.stringify(users));
+
+  if (!localStorage.getItem('users')) {
+    localStorage.setItem('users', JSON.stringify(users));
   }
 
   //Skickar tillbaka localStorage listan som nu är populerad med användare
-  return JSON.parse(localStorage.getItem("users"));
+  return JSON.parse(localStorage.getItem('users'));
+
 }
 
 /**
@@ -40,7 +44,7 @@ function addUser(username, password) {
    *
    */
   localStorage.setItem(
-    "users",
+    'users',
     JSON.stringify([
       ...getUsers(),
       {
@@ -61,7 +65,7 @@ function addUser(username, password) {
  */
 function removeUser(userId) {
   localStorage.setItem(
-    "users",
+    'users',
     JSON.stringify(getUsers().filter((user) => user.id !== userId))
   );
 }
@@ -80,9 +84,15 @@ function setCurrentUser(userId) {
     getUsers().filter((user) => user.id === userId)[0] || {};
 }
 
+function toggleForms(event) {
+    event.preventDefault();
+    document.querySelectorAll('#formLoginDiv, #formRegistrationDiv').forEach(div => div.classList.toggle('main__form-wrapper--hidden'));
+}
+
 function registerUser(event) {
   event.preventDefault();
-  const message = document.querySelector('#registrationMsg');
+  const message = document.querySelector('#registrationMsg'); 
+
   const username = document.querySelector('#registerUsername').value;
   const password = document.querySelector('#registerPassword').value;
   const passwordAgain = document.querySelector('#registerPasswordAgain').value;
@@ -152,6 +162,4 @@ function validateLogin(event) {
     return false; // Returnerar false eftersom inloggningen misslyckades.
   }
 }
-
-
 

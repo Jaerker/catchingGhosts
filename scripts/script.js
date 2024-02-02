@@ -48,7 +48,7 @@ function addUser(username, password) {
     JSON.stringify([
       ...getUsers(),
       {
-        username: username,
+        name: username,
         password: password,
         id: getUsers()[getUsers().length - 1]?.id + 1 || 1,
       },
@@ -85,7 +85,10 @@ function setCurrentUser(userId) {
 }
 
 function toggleForms(event) {
+  if(event){
     event.preventDefault();
+
+  }
     document.querySelectorAll('#formLogin, #formRegistration').forEach(div => div.classList.toggle('main__form--hidden'));
 }
 
@@ -102,14 +105,16 @@ function registerUser(event) {
     message.textContent = 'Du måste skriva något i rutorna!';
   }
   else {
-
+    console.log(getUsers());
     if (getUsers().some((user) => user.name === username)) {
       message.textContent = 'Användaren finns redan!';
     } else if (password !== passwordAgain) {
       message.textContent = 'Lösenordet stämmer inte överens!';
     } else {
       addUser(username, password);
+
       document.querySelector('#loginMsg').textContent = 'Användare skapad!';
+      toggleForms();
     }
 
   }

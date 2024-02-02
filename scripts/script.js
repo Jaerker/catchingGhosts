@@ -111,9 +111,4 @@ function registerUser(event) {
 function toggleForms(event) {
     event.preventDefault();
     document.querySelectorAll('#formLoginDiv, #formRegistrationDiv').forEach(div => div.classList.toggle('main__form-wrapper--hidden'));
-    //formLoginDiv till formRegistrationDiv
-
-    //formRegistrationDiv till formLoginDiv
-
-
 }

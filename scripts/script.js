@@ -3,6 +3,7 @@
 window.addEventListener("load", () => {
   //Här kickar ni igång ert program
   document.querySelector("#create").addEventListener("click", registerUser);
+  document.querySelector("#play").addEventListener('click', validateLogin);
 });
 
 /**
@@ -81,28 +82,76 @@ function setCurrentUser(userId) {
 
 function registerUser(event) {
   event.preventDefault();
-  const message = document.querySelector('#registrationMsg'); 
+  const message = document.querySelector('#registrationMsg');
   const username = document.querySelector('#registerUsername').value;
   const password = document.querySelector('#registerPassword').value;
   const passwordAgain = document.querySelector('#registerPasswordAgain').value;
 
-  if (username.length === 0 || password.length === 0 || passwordAgain.length === 0){
+  if (username.length === 0 || password.length === 0 || passwordAgain.length === 0) {
     message.textContent = 'Du måste skriva något i rutorna!';
   }
-  else{
+  else {
 
     if (getUsers().some((user) => user.name === username)) {
-        message.textContent = 'Användaren finns redan!';
-      } else if (password !== passwordAgain) {
-        message.textContent = 'Lösenordet stämmer inte överens!';
-      } else {
-        addUser(username, password);
-        document.querySelector('#loginMsg').textContent = 'Användare skapad!';
-      }
+      message.textContent = 'Användaren finns redan!';
+    } else if (password !== passwordAgain) {
+      message.textContent = 'Lösenordet stämmer inte överens!';
+    } else {
+      addUser(username, password);
+      document.querySelector('#loginMsg').textContent = 'Användare skapad!';
+    }
 
   }
-    
-
-
 
 }
+
+// Kontrollera inloggning
+function validateLogin(event) {
+  event.preventDefault();
+  // Hämtar användarnamn, lösenord och svar på fråga från formuläret
+  const userName = document.querySelector('#loginUsername').value; // Hämtar användarnamnet från formuläret.
+  const passWord = document.querySelector('#loginPassword').value; // Hämtar lösenordet från formuläret.
+  const question = document.querySelector('#question').checked; // Hämtar svar på fråga från formuläret.
+
+  try {
+    // Kontrollerar om användarnamn, lösenord och frågan är ifyllda
+    if (userName === '') {
+      throw {
+        'nodeRef': document.querySelector('#loginUsername'), // Referens till HTML-elementet där användarnamnet ska fyllas i.
+        'msg': 'Username is required!' // Visar ett felmeddelande om användarnamnet saknas.
+      };
+    } 
+    if (passWord === '') {
+      throw {
+        'nodeRef': document.querySelector('#loginPassword'), // Referens till HTML-elementet där lösenordet ska fyllas i.
+        'msg': 'Password is required!' // Visar ett felmeddelande om lösenordet saknas.
+      };
+    } 
+    if (!question) {
+      throw {
+        'nodeRef': document.querySelector('#question'), // Referens till HTML-elementet där en ruta ska bockas i.
+        'msg': 'Confirm that you are not afraid of ghosts!' // Visar ett felmeddelande om man glömt klicka i svaret.
+      };
+    }
+    // Hämtar uppgifter från users.js
+    const users = getUsers();
+    const user = users.find(user => user.name === userName && user.password === passWord); // Letar efter en användare med användarnamn och lösenord
+    // Kastar ett fel om ingen matchande användare hittas
+    if (!user) {
+      throw {
+        'nodeRef': document.querySelector('#loginUsername'),
+        'msg': 'Invalid username or password!' // Visar ett felmeddelande om användarnamnet eller lösenordet är ogiltigt.
+      };
+    } 
+    // Starta spelet om allt stämmer startGame()
+    return true; // Returnerar true om allt stämmer.
+    
+
+  } catch (error) {
+    document.querySelector('#loginMsg').textContent = error.msg; // Visar felmeddelandet i formuläret.
+    return false; // Returnerar false eftersom inloggningen misslyckades.
+  }
+}
+
+
+

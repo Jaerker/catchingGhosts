@@ -1,8 +1,11 @@
 "use strict";
 
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
   //Här kickar ni igång ert program
-  document.querySelector("#create").addEventListener("click", registerUser);
+  document.querySelector('#create').addEventListener('click', registerUser);
+  document.querySelectorAll('#loginToggle, #registrationToggle').forEach(btn => btn.addEventListener('click', toggleForms));
+  document.querySelector('#play').addEventListener('click', validateLogin);
+
 });
 
 /**
@@ -13,12 +16,14 @@ window.addEventListener("load", () => {
 function getUsers() {
   //Om users inte existerar i localStorage => lägg till de users vi har förberett till localStorage. (Du kan alltså ta bort alla användare och lägga
   // in nya utan att den populeras igen. Det är bara när man tar bort den helt som dessa läggs i automatiskt)
-  if (!localStorage.getItem("users")) {
-    localStorage.setItem("users", JSON.stringify(users));
+
+  if (!localStorage.getItem('users')) {
+    localStorage.setItem('users', JSON.stringify(users));
   }
 
   //Skickar tillbaka localStorage listan som nu är populerad med användare
-  return JSON.parse(localStorage.getItem("users"));
+  return JSON.parse(localStorage.getItem('users'));
+
 }
 
 /**
@@ -39,7 +44,7 @@ function addUser(username, password) {
    *
    */
   localStorage.setItem(
-    "users",
+    'users',
     JSON.stringify([
       ...getUsers(),
       {
@@ -60,7 +65,7 @@ function addUser(username, password) {
  */
 function removeUser(userId) {
   localStorage.setItem(
-    "users",
+    'users',
     JSON.stringify(getUsers().filter((user) => user.id !== userId))
   );
 }
@@ -79,28 +84,35 @@ function setCurrentUser(userId) {
     getUsers().filter((user) => user.id === userId)[0] || {};
 }
 
+function toggleForms(event) {
+    event.preventDefault();
+    document.querySelectorAll('#formLoginDiv, #formRegistrationDiv').forEach(div => div.classList.toggle('main__form-wrapper--hidden'));
+}
+
 function registerUser(event) {
   event.preventDefault();
   const message = document.querySelector('#registrationMsg'); 
+
   const username = document.querySelector('#registerUsername').value;
   const password = document.querySelector('#registerPassword').value;
   const passwordAgain = document.querySelector('#registerPasswordAgain').value;
 
-  if (username.length === 0 || password.length === 0 || passwordAgain.length === 0){
+  if (username.length === 0 || password.length === 0 || passwordAgain.length === 0) {
     message.textContent = 'Du måste skriva något i rutorna!';
   }
-  else{
+  else {
 
     if (getUsers().some((user) => user.name === username)) {
-        message.textContent = 'Användaren finns redan!';
-      } else if (password !== passwordAgain) {
-        message.textContent = 'Lösenordet stämmer inte överens!';
-      } else {
-        addUser(username, password);
-        document.querySelector('#loginMsg').textContent = 'Användare skapad!';
-      }
+      message.textContent = 'Användaren finns redan!';
+    } else if (password !== passwordAgain) {
+      message.textContent = 'Lösenordet stämmer inte överens!';
+    } else {
+      addUser(username, password);
+      document.querySelector('#loginMsg').textContent = 'Användare skapad!';
+    }
 
   }
+
 
 }
 
@@ -171,5 +183,57 @@ function isGameFinished() {
         oGameData.score = 0;
         oGameData.ghosts = 0;
     }
+}
+
+
+
+}
+
+// Kontrollera inloggning
+function validateLogin(event) {
+  event.preventDefault();
+  // Hämtar användarnamn, lösenord och svar på fråga från formuläret
+  const userName = document.querySelector('#loginUsername').value; // Hämtar användarnamnet från formuläret.
+  const passWord = document.querySelector('#loginPassword').value; // Hämtar lösenordet från formuläret.
+  const question = document.querySelector('#question').checked; // Hämtar svar på fråga från formuläret.
+
+  try {
+    // Kontrollerar om användarnamn, lösenord och frågan är ifyllda
+    if (userName === '') {
+      throw {
+        'nodeRef': document.querySelector('#loginUsername'), // Referens till HTML-elementet där användarnamnet ska fyllas i.
+        'msg': 'Username is required!' // Visar ett felmeddelande om användarnamnet saknas.
+      };
+    } 
+    if (passWord === '') {
+      throw {
+        'nodeRef': document.querySelector('#loginPassword'), // Referens till HTML-elementet där lösenordet ska fyllas i.
+        'msg': 'Password is required!' // Visar ett felmeddelande om lösenordet saknas.
+      };
+    } 
+    if (!question) {
+      throw {
+        'nodeRef': document.querySelector('#question'), // Referens till HTML-elementet där en ruta ska bockas i.
+        'msg': 'Confirm that you are not afraid of ghosts!' // Visar ett felmeddelande om man glömt klicka i svaret.
+      };
+    }
+    // Hämtar uppgifter från users.js
+    const users = getUsers();
+    const user = users.find(user => user.name === userName && user.password === passWord); // Letar efter en användare med användarnamn och lösenord
+    // Kastar ett fel om ingen matchande användare hittas
+    if (!user) {
+      throw {
+        'nodeRef': document.querySelector('#loginUsername'),
+        'msg': 'Invalid username or password!' // Visar ett felmeddelande om användarnamnet eller lösenordet är ogiltigt.
+      };
+    } 
+    // Starta spelet om allt stämmer startGame()
+    return true; // Returnerar true om allt stämmer.
+    
+
+  } catch (error) {
+    document.querySelector('#loginMsg').textContent = error.msg; // Visar felmeddelandet i formuläret.
+    return false; // Returnerar false eftersom inloggningen misslyckades.
+  }
 }
 

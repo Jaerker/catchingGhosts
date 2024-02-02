@@ -188,8 +188,6 @@ function isGameFinished() {
 
 
 
-}
-
 // Kontrollera inloggning
 function validateLogin(event) {
   event.preventDefault();
@@ -228,7 +226,8 @@ function validateLogin(event) {
         'msg': 'Invalid username or password!' // Visar ett felmeddelande om användarnamnet eller lösenordet är ogiltigt.
       };
     } 
-    // Starta spelet om allt stämmer startGame()
+    oGameData.currentUser = user;
+    startGame();
     return true; // Returnerar true om allt stämmer.
     
 

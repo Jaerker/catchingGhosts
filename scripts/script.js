@@ -101,8 +101,75 @@ function registerUser(event) {
       }
 
   }
-    
-
-
 
 }
+
+function toggleFormDivs(){
+    document.querySelector('#formWrapper').classList.toggle('main__form-wrapper--hidden');
+}
+
+function startGame() {
+    toggleFormDivs();
+    //valjer plats för att placera spöken
+    const mainRef = document.querySelector('main');
+    //random antal spöken
+    oGameData.ghosts = Math.floor(Math.random() * 6 + 10);
+
+    //skapar div för att placera spöken på skärmen
+    let gameDiv = document.createElement('div');
+    gameDiv.id = 'game';
+    
+    //loopar igenom varje spöke och skapar en bild för varje
+    for(let i = 0; i < oGameData.ghosts; i ++) {
+        let img = document.createElement('img');
+
+        img.src = oGameData.ghostImg;
+        img.dataset.state = 'ghost';
+
+        //ger spöken position
+        img.style.position = 'absolute';
+        img.style.left = oGameData.left() + 'px'; 
+        img.style.top = oGameData.top() + 'px'; 
+
+        img.addEventListener('mouseenter', checkCollision);
+        gameDiv.appendChild(img);
+    }
+    mainRef.appendChild(gameDiv);
+}
+
+
+function checkCollision(event) {
+    //när vi mouseenter spöke bilden ändras till nät
+    if(event.target.dataset.state === 'ghost') {
+        event.target.src = oGameData.netImg;
+        event.target.dataset.state = 'net';
+        //och vi får pöäng för varje spöke
+        oGameData.score++;
+    } else {
+        //om vi mouseenter nät andras det till spöke igen
+        event.target.src = oGameData.ghostImg;
+        event.target.dataset.state = 'ghost';
+        //förlorar poäng
+        oGameData.score--;
+    }
+       //kollar om spelet är slut (kollar poäng)
+    isGameFinished();
+}
+
+function isGameFinished() {
+    //om poäng är samma som spöke antal då vann vi
+    if(oGameData.score === oGameData.ghosts) {
+        const gameDiv = document.querySelector('#game');
+        //tar bort div med spöken
+        gameDiv.remove();
+        //visar meddelande
+        const loginMsg = document.querySelector('#loginMsg');
+        loginMsg.textContent = `${oGameData.currentUser.name} vann! Du fångade ` + oGameData.score + ` spöken!`;
+        toggleFormDivs();
+    
+        //rensar score och antal spöken
+        oGameData.score = 0;
+        oGameData.ghosts = 0;
+    }
+}
+

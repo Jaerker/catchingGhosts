@@ -86,8 +86,9 @@ function setCurrentUser(userId) {
 
 function toggleForms(event) {
     event.preventDefault();
-    document.querySelectorAll('#formLoginDiv, #formRegistrationDiv').forEach(div => div.classList.toggle('main__form-wrapper--hidden'));
+    document.querySelectorAll('#formLogin, #formRegistration').forEach(div => div.classList.toggle('main__form--hidden'));
 }
+
 
 function registerUser(event) {
   event.preventDefault();

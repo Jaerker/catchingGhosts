@@ -11,30 +11,37 @@ img {
 }
 
 /* Koden ovanför är obligatorisk. Ereventuella CSS skriver ni nedanför denna kommentar */
-.main{
-    
+.main__form-wrapper{
     display: flex;
-    flex-flow:row;
     height:50vh;
     justify-content: center;
     align-items: center;
-}
-.main__form-wrapper{
-    position:absolute;
-    width:400px;
     opacity:1;
-    transition: opacity .2s ease-in-out, top .2s ease-in-out, transform .2s ease-in-out;
+    transition: opacity .2s ease-in-out;
 }
 .main__form-wrapper--hidden{
+    opacity:0;
+    pointer-events: none;
+}
+.main__form{
+    position:absolute;
+    width:400px;
+    display:grid;
+    gap:.5rem;
+    transition: opacity .2s ease-in-out, top .2s ease-in-out, transform .2s ease-in-out;
+    opacity:1;
+    
+}
+.main__form--hidden{
+
     transform:scale(.5);
     opacity:0;
     pointer-events:none;
-    
 }
-.main__form{
-    display:grid;
-    gap:.5rem;
-    
+.main__form-message{
+    min-height:1.5rem;
+    text-align: center;
+    font-weight: bold;
 }
 .main__form-column{
     display:flex;

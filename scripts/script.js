@@ -102,18 +102,18 @@ function registerUser(event) {
   const passwordAgain = document.querySelector('#registerPasswordAgain').value;
 
   if (username.length === 0 || password.length === 0 || passwordAgain.length === 0) {
-    message.textContent = 'Du måste skriva något i rutorna!';
+    message.textContent = 'You must fill in all information!';
   }
   else {
     console.log(getUsers());
     if (getUsers().some((user) => user.name === username)) {
-      message.textContent = 'Användaren finns redan!';
+      message.textContent = 'The user already exists!';
     } else if (password !== passwordAgain) {
-      message.textContent = 'Lösenordet stämmer inte överens!';
+      message.textContent = 'The password does not match!';
     } else {
       addUser(username, password);
 
-      document.querySelector('#loginMsg').textContent = 'Användare skapad!';
+      document.querySelector('#loginMsg').textContent = 'User created!';
       toggleForms();
     }
 
@@ -182,7 +182,7 @@ function isGameFinished() {
         gameDiv.remove();
         //visar meddelande
         const loginMsg = document.querySelector('#loginMsg');
-        loginMsg.textContent = `${oGameData.currentUser.name} vann! Du fångade ` + oGameData.score + ` spöken!`;
+        loginMsg.textContent = `${oGameData.currentUser.name} you caught ` + oGameData.score + ` ghosts!`;
         toggleFormDivs();
     
         //rensar score och antal spöken

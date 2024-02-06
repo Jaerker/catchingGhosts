@@ -31,7 +31,7 @@ function getUsers() {
  *
  * @param {string} username Användarnamnet för personen som läggs till i användarlistan
  * @param {string} password Lösenordet för personen som läggs till i användarlistan
- * @returns {void} returnerar inget.
+ * @returns {void} Returnerar inget.
  */
 function addUser(username, password) {
   /*
@@ -58,10 +58,11 @@ function addUser(username, password) {
 
 /**
  * Tar bort en användare från listan. Finns inte användaren så händer inget (alltså om fel ID har kommit in som parameter)
+ * Denna funktion kommer tyvärr inte i användning i projektet, men råkade hänga med i svängen när vi började bygga.
  *
  * @param {number} userId Användarens ID nummer
  *
- * @returns {void} returnerar inget
+ * @returns {void} Returnerar inget
  */
 function removeUser(userId) {
   localStorage.setItem(
@@ -77,19 +78,27 @@ function removeUser(userId) {
  *
  * @param {number} userId Användarens ID nummer
  *
- * @return {void} returnerar inget
+ * @return {void} Returnerar inget
  */
 function setCurrentUser(userId) {
   oGameData.currentUser =
     getUsers().filter((user) => user.id === userId)[0] || {};
 }
 
+/**
+ * Togglar mellan loginformuläret och registreringsformuläret. 
+ * Sätts som EventListener på knappar, men kan köras i en funktion om man vill också. Det är därför det första IF statement delen finns med 
+ * 
+ * @param {PointerEvent} event Musknapp, alternativt tomt.
+ * 
+ * @returns {void} Returnerar inget
+ */
 function toggleForms(event) {
   if(event){
     event.preventDefault();
-
   }
-    document.querySelectorAll('#formLogin, #formRegistration').forEach(div => div.classList.toggle('main__form--hidden'));
+  //Loopa igenom formLogin och formRegistration och toggla main__form--hidden på båda.
+  document.querySelectorAll('#formLogin, #formRegistration').forEach(div => div.classList.toggle('main__form--hidden'));
 }
 
 
@@ -122,6 +131,11 @@ function registerUser(event) {
 
 }
 
+/**
+ * Denna funktion stänger ner hela formulärsdelen så spelet kan få full fokus. Denna skiljer sig från toggleForms med att den togglar hela den div som båda formulär ligger i, istället för mellan de 2.
+ * 
+ * @returns {void} Returnerar inget 
+ */
 function toggleFormDivs(){
     document.querySelector('#formWrapper').classList.toggle('main__form-wrapper--hidden');
 }

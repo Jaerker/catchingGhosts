@@ -4,32 +4,20 @@
 /* Ni har även tillgång till metoderna top() och left() som anropas genom oGameData.top() osv. */
 
 let oGameData = {
-   
     
-
+    ghostImg: '../resources/ghost.png',
+    netImg: '../resources/net.png',
+    ghosts: 0,
+    currentUser: {},
+    score: 0,
+    
     //Metod som räknar fram och returnerar ett numeriskt värde som skall utgöra left-koordinaten (CSS) för ett img-element.
     left : function() {
-
-        let left = 0;
-        if(this.ghost.width > this.net.width) {
-            left = this.ghost.width;
-        } else {
-            left = this.net.width;
-        }
-        
-        return Math.round(Math.random() * ( window.innerWidth - left )) + 1;
+        return Math.round(Math.random() * ( window.innerWidth - 300)) + 1;
     },
 
     //Metod som räknar fram och returnerar ett numeriskt värde som skall utgöra top-koordinaten (CSS) för ett img-element.
     top : function() {
-
-        let top = 0;
-        if(this.ghost.height > this.net.height) {
-            top = this.ghost.height;
-        } else {
-            top = this.net.height;
-        }
-
-        return Math.round(Math.random() * ( window.innerHeight - top )) + 1;
+        return Math.round(Math.random() * ( window.innerHeight - 300)) + 1;
     }
 };

@@ -8,27 +8,49 @@
         <link rel="stylesheet" href="./styles/style.css">
     </head>
 	<body>
-        <main>
-            <div id="formDiv">
-                <form action="#" method="post">
-                    <span id="msg"></span>
-                    <div class="f-col">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" />
+        <main class="main">
+
+            <div class="main__form-wrapper" id="formWrapper">
+                <form class="main__form" action="#" method="post" id="formLogin">
+                    <span class="main__form-message" id="loginMsg"></span>
+                    <div class="main__form-column">
+                        <label for="loginUsername">Username:</label>
+                        <input class="main__form-input" type="text" id="loginUsername" />
                     </div>
-                    <div class="f-col">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" />
+                    <div class="main__form-column">
+                        <label for="loginPassword">Password:</label>
+                        <input class="main__form-input" type="password" id="loginPassword" />
                     </div>
-                    <div>
+                    <div class="main__form-column">
                         <label for="question">Please confirm that you are not afraid of ghosts: </label>
-                        <input id="question" type="checkbox">
+                        <input class="main__form-checkbox" id="question" type="checkbox">
                     </div>
-                    <button id="spela">Play Game</button>
+                    <button class="main__form-button" id="play">Play Game</button>
+                    <button class="main__form-button" id="loginToggle">Im new to this game!</button>
+                </form>
+            
+                <form class="main__form main__form--hidden" action="#" method="post" id="formRegistration">
+                    <span class="main__form-message" id="registrationMsg"></span>
+                    <div class="main__form-column">
+                        <label for="registerUsername">Username:</label>
+                        <input class="main__form-input" type="text" id="registerUsername" />
+                    </div>
+                    <div class="main__form-column">
+                        <label for="registerPassword">Password:</label>
+                        <input class="main__form-input" type="password" id="registerPassword" />
+                    </div>
+                    <div class="main__form-column">
+                        <label for="registerPasswordAgain">Password again:</label>
+                        <input class="main__form-input" type="password" id="registerPasswordAgain" />
+                    </div>
+                    <button class="main__form-button" id="create">Create account</button>
+                    <button class="main__form-button" id="registrationToggle">I´ve played this before!</button>
                 </form>
             </div>
         </main>
+        <script src="./scripts/ghostGame.js"></script>
+        <script src="./scripts/users.js"></script>
+        <script src="./scripts/script.js"></script>
 
-        <script></script>
     </body>
 </html>
